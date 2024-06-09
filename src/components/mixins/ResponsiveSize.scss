@@ -1,0 +1,16 @@
+// responsive mixins
+@mixin laptopSize {
+  @media (max-width: 1100px) {
+    @content;
+  }
+}
+@mixin ipadSize {
+  @media (max-width: 850px) {
+    @content;
+  }
+}
+@mixin mobileSize {
+  @media (max-width: 600px) {
+    @content;
+  }
+}

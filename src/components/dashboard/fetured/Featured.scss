@@ -1,0 +1,78 @@
+.adminFeatured {
+  // width: 34%;
+  flex: 3;
+
+  padding: 10px;
+  background-color: var(--dark1);
+  border-radius: 5px;
+  .topBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: var(--light3);
+    h3 {
+      font-weight: lighter;
+      font-size: 16px;
+    }
+  }
+  .centerBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    h4 {
+      font-weight: lighter;
+      font-size: 16px;
+      color: var(--light3);
+    }
+    & > span {
+      font-size: 30px;
+    }
+    .circleBox {
+      position: relative;
+      display: inline-flex;
+      .label {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .bottomBox {
+    display: flex;
+    flex-direction: column;
+    & > span {
+      text-align: center;
+      color: var(--light3);
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .historyBox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .smBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & > span {
+        color: var(--light3);
+      }
+
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+      }
+    }
+  }
+}

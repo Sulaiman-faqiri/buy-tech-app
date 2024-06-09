@@ -1,0 +1,17 @@
+.searchBoxReuseble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 20%;
+  background-color: var(--dark2);
+  border-radius: 5px;
+  padding: 0 5px;
+  input {
+    padding: 10px;
+    border: none;
+    outline: none;
+    height: 30px;
+    background-color: transparent;
+    color: var(--light1);
+  }
+}

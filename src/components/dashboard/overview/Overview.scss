@@ -1,0 +1,97 @@
+.adminOverView {
+  width: 100%;
+  height: 100%;
+  .down {
+    color: red;
+  }
+  .up {
+    color: rgb(13, 207, 13);
+  }
+  .info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & > div {
+      width: calc(96% / 4);
+    }
+    .infoBox {
+      min-width: 24.3%;
+      min-height: 160px;
+      background-color: var(--dark1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      border-radius: 5px;
+      h2 {
+        font-size: 32px;
+        font-weight: 500;
+      }
+      .topBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        & > span {
+          text-transform: uppercase;
+          color: var(--light3);
+        }
+        .smBox {
+          display: flex;
+          align-items: center;
+        }
+      }
+      .bottomBox {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        a {
+          color: var(--light3);
+          text-decoration: none;
+          border-bottom: 1px solid var(--light3);
+          font-size: 12px;
+        }
+        svg {
+          padding: 3px;
+          border-radius: 3px;
+        }
+        .user {
+          color: #dc2626;
+          background-color: #fca5a5;
+        }
+        .cart {
+          color: #d97706;
+          background-color: #fcd34d;
+        }
+        .dollar {
+          color: #16a34a;
+          background-color: #86efac;
+        }
+        .wallet {
+          color: #9333ea;
+          background-color: #d8b4fe;
+        }
+      }
+    }
+  }
+  .featuredBox {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1%;
+    margin-top: 10px;
+  }
+  @media screen and (max-width: 900px) {
+    .featuredBox {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .info {
+      flex-wrap: wrap;
+      gap: 5px;
+      font-size: 60%;
+      & > div {
+        width: calc(97.2% / 2);
+      }
+    }
+  }
+}

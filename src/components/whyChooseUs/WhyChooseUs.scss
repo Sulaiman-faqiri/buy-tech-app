@@ -1,0 +1,33 @@
+.whyChooseUs {
+  padding: 0px 60px;
+
+  h2 {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-family: 'Arimo', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 100%;
+    margin: 80px 0px;
+    text-align: center;
+  }
+  .infoBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      span {
+        &:last-child {
+          font-size: 14px;
+          color: rgb(150, 147, 147);
+        }
+      }
+    }
+  }
+}

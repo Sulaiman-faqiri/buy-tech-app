@@ -1,0 +1,56 @@
+.transactionTable {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  background-color: var(--dark1);
+  margin-top: 10px;
+  border-radius: 5px;
+  h3 {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--light3);
+    padding: 10px;
+  }
+  .tbl {
+    color: var(--light1);
+    background-color: var(--dark1);
+    padding: 10px;
+  }
+
+  th,
+  td {
+    color: var(--light1);
+    width: 1%;
+    padding: 5px;
+    border-bottom: 1px solid var(--border1);
+    .product {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .imgBox {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        // border-radius: 100px;
+        // background-color: var(--dark2);
+        // border: 1px solid var(--border1);
+      }
+    }
+  }
+  td {
+    color: var(--light2);
+  }
+  .approved {
+    color: rgb(24, 224, 24);
+  }
+  .pending {
+    color: rgb(231, 203, 19);
+  }
+  .declined {
+    color: rgb(230, 21, 21);
+  }
+  // .productItem {
+  //   width: 10%;
+  // }
+}

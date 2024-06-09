@@ -1,0 +1,106 @@
+.usersTable {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--dark1);
+  padding: 20px;
+  border-radius: 5px;
+  min-height: calc(100vh - 100px);
+  h3 {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0px;
+  }
+  .topBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      border: none;
+      background-color: var(--blue1);
+      padding: 5px 18px;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        background-color: #0573e0;
+      }
+    }
+  }
+
+  .tbl {
+    color: var(--light1);
+    background-color: var(--dark1);
+    box-shadow: none;
+  }
+  .action {
+    text-align: center;
+  }
+  .btnBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+
+    button {
+      border: none;
+      border-radius: 5px;
+      padding: 5px 12px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .edit {
+      background-color: green;
+      &:hover {
+        background-color: rgb(3, 103, 3);
+      }
+    }
+    .delete {
+      background-color: red;
+      &:hover {
+        background-color: rgb(234, 6, 6);
+      }
+    }
+  }
+
+  th,
+  td {
+    color: var(--light1);
+    padding: 5px;
+    border-bottom: 1px solid var(--border1);
+    text-align: center;
+    // width: 10px;
+  }
+  .usrImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .imgBox {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+      img {
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      // background-color: var(--dark2);
+      // border: 1px solid var(--border1);
+    }
+  }
+  td {
+    color: var(--light2);
+  }
+  .approved {
+    color: rgb(24, 224, 24);
+  }
+  .pending {
+    color: rgb(231, 203, 19);
+  }
+  .declined {
+    color: rgb(230, 21, 21);
+  }
+}

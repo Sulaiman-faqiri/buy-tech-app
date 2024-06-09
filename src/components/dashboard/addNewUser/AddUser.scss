@@ -1,0 +1,131 @@
+.addNewUser {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: calc(90vh - 70px);
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--blue1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: start;
+      &:hover {
+        background-color: #0975e0;
+      }
+    }
+  }
+
+  .box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .left {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+    }
+  }
+  .right {
+    // width: 28%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 10px;
+      padding: 5px;
+      border: 2px dashed var(--border1);
+      width: 90%;
+      height: 100%;
+      position: relative;
+      .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        backdrop-filter: blur(20px);
+        width: 50%;
+        height: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      svg {
+        font-size: 40px;
+        cursor: pointer;
+        color: var(--light2);
+      }
+    }
+  }
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 48%;
+
+    input {
+      padding: 10px;
+      border: 1px solid var(--light3);
+      border-radius: 6px;
+      height: 50px;
+      background-color: var(--dark2);
+      color: var(--light2);
+      outline: none;
+      &::placeholder {
+        color: var(--light3);
+        font-size: 14px;
+      }
+    }
+  }
+  .selectBox {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    select {
+      border: 1px solid var(--light3);
+      padding: 10px;
+      background-color: var(--dark2);
+      color: var(--light2);
+      outline: none;
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .box {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .left {
+      .wrapper {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    .inputBox {
+      width: 100%;
+    }
+    .selectBox {
+      width: 80%;
+    }
+  }
+}

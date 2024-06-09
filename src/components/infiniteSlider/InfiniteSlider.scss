@@ -1,0 +1,253 @@
+.sliderSection {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  // gap: 100px;
+  h2 {
+    font-family: 'Mochiy Pop One', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-family: 'Arimo', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 100%;
+    margin: 80px 0px;
+    text-align: center;
+  }
+  .sliderBox {
+    height: 450px;
+    margin: 0 auto;
+    position: relative;
+    width: 92%;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+
+    &.hasPseudoElements::after,
+    &.hasPseudoElements::before {
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 15%;
+      z-index: 2;
+    }
+    &.hasPseudoElements::after {
+      right: 0;
+      top: 0;
+      transform: rotateZ(180deg);
+    }
+    &.hasPseudoElements::before {
+      left: 0;
+      top: 0;
+    }
+
+    .slideTrack {
+      display: flex;
+      animation: scroll 10s linear infinite;
+
+      h4 {
+        width: 100%;
+        text-align: center;
+      }
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+  }
+
+  .slideItem {
+    position: relative;
+    width: 450px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    // perspective: 100px;
+    // padding: 15px;
+
+    // transition: all 0.4s;
+    // transform: scale(1);
+    .bage {
+      position: relative;
+      width: 115px;
+      height: 115px;
+      overflow: hidden;
+      top: -82px;
+      right: -170px;
+    }
+
+    .ribbon {
+      position: absolute;
+      display: inline-block;
+
+      top: 0.3em;
+      right: 0.8em;
+
+      max-width: 5em;
+
+      color: #fff;
+
+      z-index: 1;
+    }
+
+    .ribbon::after {
+      position: absolute;
+      top: -1.5em;
+      right: -6em;
+      content: '';
+
+      height: 5em;
+      width: 15em;
+
+      transform: rotatez(45deg);
+
+      background-color: red;
+      z-index: -1;
+    }
+    .info {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 23;
+      color: white;
+      display: none;
+      .box {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        a {
+          display: inline-block;
+          width: 120%;
+        }
+        span {
+          font-size: 14px;
+          border-bottom: 1px solid lightgray;
+        }
+      }
+      cursor: pointer;
+      svg {
+        font-size: 28px;
+        transition: all 0.2s;
+        &:hover {
+          cursor: pointer;
+          font-size: 33px;
+        }
+      }
+    }
+    img {
+      width: 90% !important;
+      height: 70% !important;
+      // padding: 0px 10px;
+      padding: 40px;
+      margin: auto;
+      object-fit: contain;
+      background-color: #f8f9fa;
+      filter: brightness(1);
+      border-radius: 4px;
+    }
+
+    &:hover {
+      transition: all 0.5s;
+      .info {
+        display: block;
+      }
+      img {
+        filter: brightness(0.7);
+        // transform: scale(1.2);
+        transition: all 0.5s;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.skeletonBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-300px * 6));
+  }
+}
+.sliderCard {
+  width: 100%;
+  min-height: 80%;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
+  transition: all 0.3s;
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.03);
+  }
+  .imgBox {
+    width: 100%;
+    height: 20%;
+    object-fit: cover;
+    border-radius: 3px;
+    // background-color: #f6f7f8;
+    background-color: #f1f3f5;
+  }
+  .infoBox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 22px;
+      color: #999;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    .cartBtn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .price {
+        span {
+          color: gray;
+          &:first-child {
+            font-size: 80%;
+            font-weight: 400;
+            text-decoration: line-through;
+            display: inline-block;
+            margin-right: 5px;
+          }
+          &:last-child {
+            font-weight: 600;
+            font-size: 90%;
+          }
+        }
+      }
+      .icon {
+        color: var(--primaryColor);
+        animation: iconScale 2s infinite alternate;
+        &:hover {
+          animation: none;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

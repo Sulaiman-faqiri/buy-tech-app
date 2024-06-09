@@ -1,0 +1,88 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Playfair+Display:wght@900&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@700&family=Montserrat:wght@300;400&display=swap');
+
+:root {
+  --primaryColor: #007fff;
+  /* --secondaryColor: #fff; */
+  --secondaryColor: #fff;
+  --firstText: #101418;
+  --secondText: #434d5b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  transition: all 0.5ms ease-in-out;
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: 'Montserrat', sans-serif;
+  color: var(--firstText);
+  --sb-track-color: #ffffff;
+  --sb-thumb-color: #007fff;
+  --sb-size: 6px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+.lds-dual-ring {
+  /* change color here */
+  color: #007fff;
+}
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

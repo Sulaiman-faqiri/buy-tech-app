@@ -1,0 +1,55 @@
+.categoryPage {
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      padding: 5px 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--blue1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: start;
+      &:hover {
+        background-color: #0975e0;
+      }
+    }
+  }
+  .categoryBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+
+    .categoryItem {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border1);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      & > div {
+        text-transform: capitalize;
+      }
+      p {
+        font-size: 14px;
+        color: var(--light3);
+      }
+      button {
+        border: none;
+        border-radius: 5px;
+        padding: 5px 12px;
+        color: white;
+        background-color: green;
+        cursor: pointer;
+        transition: all 0.3s;
+        background-color: red;
+        &:hover {
+          background-color: rgb(234, 6, 6);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+.resgisterForm {
+  --black: #020617;
+  --black1: #0f172a;
+  --black2: #1e293b;
+  --gray: #9ca3af;
+  --gray1: #d1d5db;
+  --gray2: #e5e7eb;
+  --gray3: #f9fafb;
+  --white: #fff;
+  --red: #e11d48;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray3);
+  .error {
+    color: var(--red);
+    font-size: 13px;
+    text-align: left;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 40%;
+    min-height: 40vh;
+    margin: 0 auto;
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    h1 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    button {
+      transition: all 0.2s;
+      cursor: pointer;
+      padding: 14px 18px;
+      border-radius: 5px;
+    }
+    .btn1 {
+      border: none;
+      background-color: var(--primaryColor);
+      color: white;
+      font-size: 17px;
+      &:hover {
+        background-color: #0573e2;
+      }
+    }
+    .btn2 {
+      background-color: var(--white);
+      border: 1px solid var(--gray1);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      &:hover {
+        background-color: var(--gray3);
+      }
+    }
+
+    span {
+      text-align: center;
+      width: 100%;
+      color: var(--black1);
+      a {
+        color: var(--primary);
+        text-decoration: underline;
+      }
+    }
+  }
+  .radio {
+    div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type='radio'] {
+      --s: 1em;
+
+      height: var(--s);
+      aspect-ratio: 1;
+      border: calc(var(--s) / 8) solid #939393;
+      padding: calc(var(--s) / 8);
+      background: radial-gradient(farthest-side, var(--primary) 94%, #0000) 50%/0
+        0 no-repeat content-box;
+      border-radius: 50%;
+      outline-offset: calc(var(--s) / 10);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      font-size: inherit;
+      transition: 0.3s;
+    }
+    input[type='radio']:checked {
+      border-color: var(--primary);
+      background-size: 100% 100%;
+    }
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+  }
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    input {
+      padding: 10px;
+      border: 1px solid var(--gray2);
+      border-radius: 6px;
+      color: var(--black);
+      height: 40px;
+
+      &::placeholder {
+        color: var(--gray);
+        font-size: 14px;
+      }
+      &:focus {
+        outline: 1px solid var(--primary);
+      }
+    }
+  }
+}
