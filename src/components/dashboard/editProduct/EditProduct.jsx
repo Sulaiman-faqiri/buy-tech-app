@@ -180,7 +180,7 @@ const EditProduct = ({ editMode, editData, prodId, categories }) => {
       )
       router.push('/dashboard/products')
       router.refresh('/dashboard/products')
-      toast.success('Product is updated successfully')
+      toast.success('Product is updated successfullyy')
     } catch (error) {
       setFormSubmitted(false)
       console.error('Error sending data to backend:', error)
