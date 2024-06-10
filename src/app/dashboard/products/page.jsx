@@ -2,7 +2,9 @@ import ProductsTable from '../../../components/dashboard/productsTable/ProductsT
 const fetchData = async (query, page) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/products?query=${query}&page=${+page}`,
+      `${
+        process.env.NEXT_PUBLIC_SERVER_URL
+      }/api/products?query=${query}&page=${+page}`,
       { cache: 'no-store' }
     )
     const res = await response.json()

@@ -175,7 +175,7 @@ const EditProduct = ({ editMode, editData, prodId, categories }) => {
       )
 
       await axios.put(
-        `http://localhost:3000/api/products/${prodId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${prodId}`,
         formDataToSubmit
       )
       router.push('/dashboard/products')

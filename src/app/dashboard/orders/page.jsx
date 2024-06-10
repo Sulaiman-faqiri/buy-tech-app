@@ -5,7 +5,9 @@ import React from 'react'
 const fetchData = async (query, page) => {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/orders?query=${query}&page=${+page}`,
+      `${
+        process.env.NEXT_PUBLIC_SERVER_URL
+      }/api/orders?query=${query}&page=${+page}`,
       { cache: 'no-store' }
     )
 

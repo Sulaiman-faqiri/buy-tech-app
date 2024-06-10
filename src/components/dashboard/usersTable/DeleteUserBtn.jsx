@@ -10,7 +10,9 @@ import { toast } from 'sonner'
 const DeleteUserBtn = ({ _id, image }) => {
   const router = useRouter()
   const deleteUser = async (id) => {
-    const response = await axios.delete(`http://localhost:3000/api/users/${id}`)
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}`
+    )
     if (response.status === 200) {
       router.refresh('/dashboard/users')
       toast.success('User deleted successfully')

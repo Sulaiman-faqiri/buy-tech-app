@@ -192,8 +192,10 @@ const AddNewUser = ({ singleUser, admin, add }) => {
       }
       console.log(updateData)
       const url = isAddUser
-        ? `http://localhost:3000/api/users`
-        : `http://localhost:3000/api/users/${singleUser._id?.toString()}`
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`
+        : `${
+            process.env.NEXT_PUBLIC_SERVER_URL
+          }/api/users/${singleUser._id?.toString()}`
 
       const method = isAddUser ? 'post' : 'put'
 
