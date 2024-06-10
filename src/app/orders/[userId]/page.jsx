@@ -5,7 +5,7 @@ import Link from 'next/link'
 const fetchData = async (userId) => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/${userId}`
+      `http://localhost:3000/api/orders/${userId}`
     )
 
     if (response.status !== 200) {

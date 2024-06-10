@@ -13,14 +13,14 @@ const Categories = ({ categories }) => {
   const handleDelete = async (id, name) => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories/${id}`
+        `http://localhost:3000/api/categories/${id}`
       )
 
       if (response.status === 200) {
         router.refresh('/dashboard/categories')
         toast.success(response.data.message)
         const productsResponse = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`
+          `http://localhost:3000/api/products`
         )
         const products = productsResponse.data
 

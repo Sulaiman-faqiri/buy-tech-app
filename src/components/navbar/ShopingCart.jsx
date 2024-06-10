@@ -28,10 +28,11 @@ function ShopingCart({
       return
     }
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/checkout`,
-        { cart, totalAmount, email: session.data.user.email }
-      )
+      const response = await axios.post(`http://localhost:3000/api/checkout`, {
+        cart,
+        totalAmount,
+        email: session.data.user.email,
+      })
       window.location = response.data.url
     } catch (error) {
       console.error('Checkout error:', error)

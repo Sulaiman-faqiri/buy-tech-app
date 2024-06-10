@@ -17,9 +17,7 @@ const InfiniteSlider = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`
-        )
+        const response = await axios.get(`http://localhost:3000/api/products`)
         setData(response.data.products)
         setLoading(false)
       } catch (error) {

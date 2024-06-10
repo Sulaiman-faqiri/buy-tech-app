@@ -29,10 +29,7 @@ const AddNewCategory = () => {
     }
     setFormSubmitted(true)
     try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
-        categoryInfo
-      )
+      await axios.post(`http://localhost:3000/api/categories`, categoryInfo)
       router.push('/dashboard/categories')
       router.refresh('/dashboard/categories')
       toast.success('Category is added successfully')

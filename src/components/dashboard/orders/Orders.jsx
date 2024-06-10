@@ -32,7 +32,7 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/${orderId}`,
+        `http://localhost:3000/api/orders/${orderId}`,
         { orderStatus: newStatus }
       )
       router.refresh('dashboard/orders')
@@ -50,7 +50,7 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/orders/${id}`
+        `http://localhost:3000/api/orders/${id}`
       )
       if (response.status === 200) {
         toast.success('Order has been deleted successfully!')

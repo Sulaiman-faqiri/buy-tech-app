@@ -3,9 +3,7 @@ import axios from 'axios'
 import React from 'react'
 const fetchData = async (id) => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}`
-    )
+    const response = await axios.get(`http://localhost:3000/api/users/${id}`)
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch user')

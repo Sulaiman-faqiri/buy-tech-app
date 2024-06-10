@@ -149,23 +149,20 @@ const AddNewProduct = ({ categories }) => {
                   if (imgUrls.length === formImages.length) {
                     // All images uploaded, send request to backend
                     try {
-                      await axios.post(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`,
-                        {
-                          productName,
-                          prvPrice,
-                          curPrice,
-                          description,
-                          category,
-                          imgUrls,
-                          isNewArrival,
-                          isDiscounted,
-                          discountPercentage,
-                          discountStartDate,
-                          discountEndDate,
-                          stockQuantity,
-                        }
-                      )
+                      await axios.post(`http://localhost:3000/api/products`, {
+                        productName,
+                        prvPrice,
+                        curPrice,
+                        description,
+                        category,
+                        imgUrls,
+                        isNewArrival,
+                        isDiscounted,
+                        discountPercentage,
+                        discountStartDate,
+                        discountEndDate,
+                        stockQuantity,
+                      })
                       router.push('/dashboard/products')
                       router.refresh('/dashboard/products')
                       toast.success('Product is added successfully')

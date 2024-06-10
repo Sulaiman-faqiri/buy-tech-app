@@ -50,7 +50,6 @@ import './TransactionTable.scss'
 // ]
 
 const TransactionTable = ({ data }) => {
-  console.log(data.productImages)
   return (
     <div className='transactionTable'>
       <h3>Transaction Table</h3>

@@ -3,9 +3,7 @@ import axios from 'axios'
 import React from 'react'
 const fetchData = async (id) => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}`
-    )
+    const response = await axios.get(`http://localhost:3000/api/products/${id}`)
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch products')
@@ -19,10 +17,9 @@ const fetchData = async (id) => {
 }
 const fetchCategories = async () => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
-      { cache: 'no-store' }
-    )
+    const response = await axios.get(`http://localhost:3000/api/categories`, {
+      cache: 'no-store',
+    })
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch categories')

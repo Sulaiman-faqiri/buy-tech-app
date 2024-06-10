@@ -4,9 +4,7 @@ import SingleProduct from '../../../components/singleProduct/SingleProduct'
 import axios from 'axios'
 const fetchData = async (id) => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}`
-    )
+    const response = await axios.get(`http://localhost:3000/api/products/${id}`)
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch product')

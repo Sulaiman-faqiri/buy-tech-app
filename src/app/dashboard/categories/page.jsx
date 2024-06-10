@@ -2,10 +2,9 @@ import axios from 'axios'
 import Categories from '../../../components/dashboard/category/Categories'
 const fetchData = async () => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
-      { cache: 'no-store' }
-    )
+    const response = await axios.get(`http://localhost:3000/api/categories`, {
+      cache: 'no-store',
+    })
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch categories')
