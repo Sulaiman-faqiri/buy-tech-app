@@ -20,6 +20,8 @@ const fetchData = async (query, page) => {
   }
 }
 const ProductsPage = async ({ searchParams }) => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const query = searchParams?.q || ''
   const page = searchParams?.page || 1
   const { ITEM_PER_PAGE, count, products } = await fetchData(query, page)

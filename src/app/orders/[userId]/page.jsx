@@ -20,6 +20,8 @@ const fetchData = async (userId) => {
 }
 
 const UserOrdersPage = async ({ params }) => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const orders = await fetchData(params.userId)
 
   return (

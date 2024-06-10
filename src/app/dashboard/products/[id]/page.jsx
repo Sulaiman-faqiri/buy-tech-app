@@ -3,7 +3,9 @@ import axios from 'axios'
 import React from 'react'
 const fetchData = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/products/${id}`)
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}`
+    )
 
     if (response.status !== 200) {
       throw new Error('Failed to fetch products')
@@ -34,6 +36,8 @@ const fetchCategories = async () => {
 }
 
 const EditSingleProduct = async ({ params }) => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const { id } = params
   const data = await fetchData(id)
   const categories = await fetchCategories()

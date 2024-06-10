@@ -35,7 +35,7 @@ const AddNewCategory = () => {
       )
       router.push('/dashboard/categories')
       router.refresh('/dashboard/categories')
-      toast.success('Category is added successfully')
+      toast.success('Category is added successfullyyy')
     } catch (error) {
       if (error) {
         setFormSubmitted(false)

@@ -18,8 +18,9 @@ const fetchData = async () => {
   }
 }
 const CategoriesPage = async () => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const categories = await fetchData()
-  console.log(process.env.NEXT_PUBLIC_SERVER_URL)
   return (
     <>
       <Categories categories={categories} />

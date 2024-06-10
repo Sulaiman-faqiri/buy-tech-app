@@ -19,6 +19,8 @@ const fetchData = async (id) => {
   }
 }
 const SingleItmePage = async ({ params }) => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const { prodId } = params
   const singleProduct = await fetchData(prodId)
   return (

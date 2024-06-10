@@ -17,6 +17,8 @@ const fetchData = async () => {
   }
 }
 const OverViewPage = async () => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const data = await fetchData()
 
   return (

@@ -18,7 +18,10 @@ const fetchData = async () => {
     throw new Error('Failed to fetch categories')
   }
 }
+
 const AddProduct = async () => {
+  if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+
   const categories = await fetchData()
   return (
     <>
