@@ -47,6 +47,7 @@ const Sidebar = ({ children }) => {
           <Link
             className={`${path === '/dashboard' ? 'active' : ''}`}
             href={'/dashboard'}
+            prefetch={true}
           >
             <DashboardOutlined />
             <span>Dashboard</span>
@@ -54,6 +55,7 @@ const Sidebar = ({ children }) => {
           <Link
             className={`${path === '/dashboard/users' ? 'active' : ''}`}
             href={'/dashboard/users'}
+            prefetch={true}
           >
             <PeopleOutlined />
             <span>Users</span>
@@ -61,6 +63,7 @@ const Sidebar = ({ children }) => {
           <Link
             className={`${path === '/dashboard/products' ? 'active' : ''}`}
             href={'/dashboard/products'}
+            prefetch={true}
           >
             <Inventory2Outlined />
             <span>Products</span>
@@ -68,6 +71,7 @@ const Sidebar = ({ children }) => {
           <Link
             className={`${path === '/dashboard/categories' ? 'active' : ''}`}
             href={'/dashboard/categories'}
+            prefetch={true}
           >
             <CategoryOutlined />
             <span>Categories</span>
@@ -75,6 +79,7 @@ const Sidebar = ({ children }) => {
           <Link
             className={`${path === '/dashboard/orders' ? 'active' : ''}`}
             href={'/dashboard/orders'}
+            prefetch={true}
           >
             <ListAltOutlined />
             <span>Orders</span>
@@ -82,7 +87,7 @@ const Sidebar = ({ children }) => {
         </div>
 
         <div className='logout'>
-          <Link href={`/dashboard/users/${data?.user?.id}`}>
+          <Link href={`/dashboard/users/${data?.user?.id}`} prefetch={true}>
             <SettingsOutlined />
             <span>Settings</span>
           </Link>

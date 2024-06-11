@@ -92,6 +92,7 @@ const Navbar = () => {
               <Link
                 className='active'
                 href={`/orders/${session.data?.user.id}`}
+                prefetch={true}
               >
                 Orders
               </Link>
@@ -99,7 +100,7 @@ const Navbar = () => {
           )}
           {session.data?.user.isAdmin && (
             <li onClick={() => setMenuOpen(false)}>
-              <Link className='active' href='/dashboard'>
+              <Link className='active' href='/dashboard' prefetch={true}>
                 Dashboard
               </Link>
             </li>

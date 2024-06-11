@@ -1,4 +1,5 @@
 import Overview from '../../components/dashboard/overview/Overview'
+export const dynamic = 'force-dynamic'
 const fetchData = async () => {
   try {
     const response = await fetch(
