@@ -3,7 +3,7 @@ const fetchData = async () => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`,
-      { cache: 'no-cache' }
+      { cache: 'no-store' }
     )
     const data = await response.json()
     if (response.status !== 200) {
