@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Overview from '../../components/dashboard/overview/Overview'
 const fetchData = async () => {
   try {
