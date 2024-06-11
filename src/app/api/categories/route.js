@@ -20,7 +20,6 @@ export const POST = async (request) => {
     const { name, description } = await request.json()
 
     if (!name.trim()) {
-      console.log('runned')
       return NextResponse.json(
         { message: 'Category name is required' },
         { status: 400 }
@@ -32,7 +31,7 @@ export const POST = async (request) => {
     const existingCategory = await Category.findOne({ name })
 
     if (existingCategory) {
-      return NextResponse.json('Category with this name already exists', {
+      return NextResponse.error('Category with this name already exists', {
         status: 400,
       })
     }
