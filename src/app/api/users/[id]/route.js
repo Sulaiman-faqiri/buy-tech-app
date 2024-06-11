@@ -2,6 +2,7 @@ import { connectToDb } from '../../../../lib/connectToDb'
 import { User } from '../../../../models/models'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
+import { revalidatePath } from 'next/cache'
 
 export const GET = async (request, { params }) => {
   const { id } = params
@@ -104,6 +105,7 @@ export const PUT = async (request, { params }) => {
     if (!updatedUser) {
       return NextResponse.error('User not found', { status: 404 })
     }
+    revalidatePath('/dashboard/users', 'page')
 
     return NextResponse.json({
       message: 'Settings updated successfully',
@@ -129,6 +131,8 @@ export const DELETE = async (request, { params }) => {
     if (!updatedUser) {
       return NextResponse.error('User not found', { status: 404 })
     }
+    revalidatePath('/dashboard/users', 'page')
+    revalidatePath('/dashboard', 'page')
 
     return NextResponse.json({ message: 'User deactivated successfully' })
   } catch (err) {

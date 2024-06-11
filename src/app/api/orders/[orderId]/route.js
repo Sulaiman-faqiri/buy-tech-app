@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../../lib/connectToDb'
 import { Order } from '../../../../models/models'
+import { revalidatePath } from 'next/cache'
 
 export const GET = async (request, { params }) => {
   const { orderId: userId } = params
@@ -57,6 +58,8 @@ export const PUT = async (request, { params }) => {
     if (!updatedOrder) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 })
     }
+    revalidatePath('/dashboard/orders', 'page')
+    revalidatePath('/dashboard', 'page')
 
     return NextResponse.json({
       message: 'Order status updated successfully',
@@ -81,6 +84,8 @@ export const DELETE = async (request, { params }) => {
     if (!deletedOrder) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 })
     }
+    revalidatePath('/dashboard/orders', 'page')
+    revalidatePath('/dashboard', 'page')
 
     return NextResponse.json(
       { message: 'Order deleted successfully' },
