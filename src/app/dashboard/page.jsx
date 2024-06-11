@@ -2,7 +2,8 @@ import Overview from '../../components/dashboard/overview/Overview'
 const fetchData = async () => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`,
+      { cache: 'no-cache' }
     )
     const data = await response.json()
     if (response.status !== 200) {
