@@ -2,8 +2,7 @@ import Categories from '../../../components/dashboard/category/Categories'
 const fetchData = async () => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
-      { cache: 'no-store' }
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`
     )
     const data = await response.json()
     if (response.status !== 200) {
