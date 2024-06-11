@@ -39,9 +39,9 @@ const InfiniteSlider = () => {
       ? '100%'
       : `calc(300px * ${discountedProducts.length})`
   const animationStyle =
-    loading || error || discountedProducts.length < 3
+    loading || error || discountedProducts.length < 5
       ? 'none'
-      : 'scroll 10s linear infinite'
+      : 'scroll 50s linear infinite'
   const sliderBoxClass =
     discountedProducts.length > 4 ? 'sliderBox hasPseudoElements' : 'sliderBox'
 

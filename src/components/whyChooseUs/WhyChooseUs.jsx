@@ -11,7 +11,7 @@ const WhyChooseUs = () => {
   return (
     <div className='whyChooseUs'>
       <h2>Why Choose Us?</h2>
-      <div className='infoBox'>
+      <div className='infoBox nn'>
         <div className='box'>
           <Inventory2Outlined />
           <h4>Free Shipping</h4>

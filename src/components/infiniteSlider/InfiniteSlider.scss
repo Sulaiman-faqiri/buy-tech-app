@@ -48,7 +48,6 @@
 
     .slideTrack {
       display: flex;
-      animation: scroll 10s linear infinite;
 
       h4 {
         width: 100%;
@@ -56,7 +55,7 @@
       }
 
       &:hover {
-        animation-play-state: paused;
+        animation-play-state: paused !important;
       }
     }
   }
@@ -160,7 +159,6 @@
       }
       img {
         filter: brightness(0.7);
-        // transform: scale(1.2);
         transition: all 0.5s;
         cursor: pointer;
       }
