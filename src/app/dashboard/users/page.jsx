@@ -5,8 +5,7 @@ const fetchData = async (query, page) => {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_SERVER_URL
-      }/api/users?query=${query}&page=${+page}`,
-      { cache: 'no-store' }
+      }/api/users?query=${query}&page=${+page}`
     )
     const res = await response.json()
 
