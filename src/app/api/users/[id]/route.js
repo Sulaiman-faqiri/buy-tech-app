@@ -131,8 +131,8 @@ export const DELETE = async (request, { params }) => {
     if (!updatedUser) {
       return NextResponse.error('User not found', { status: 404 })
     }
-    revalidatePath('/dashboard/users', 'page')
     revalidatePath('/dashboard', 'page')
+    revalidatePath('/dashboard/users', 'page')
 
     return NextResponse.json({ message: 'User deactivated successfully' })
   } catch (err) {

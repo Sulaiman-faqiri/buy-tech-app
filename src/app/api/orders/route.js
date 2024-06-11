@@ -75,8 +75,8 @@ export const POST = async (req) => {
 
     // Save the order to the database
     await newOrder.save()
-    revalidatePath('/dashboard/orders', 'page')
     revalidatePath('/dashboard', 'page')
+    revalidatePath('/dashboard/orders', 'page')
     return NextResponse.json({
       message: 'Order created successfully',
       order: newOrder,

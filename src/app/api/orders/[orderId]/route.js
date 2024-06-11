@@ -84,8 +84,8 @@ export const DELETE = async (request, { params }) => {
     if (!deletedOrder) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 })
     }
-    revalidatePath('/dashboard/orders', 'page')
     revalidatePath('/dashboard', 'page')
+    revalidatePath('/dashboard/orders', 'page')
 
     return NextResponse.json(
       { message: 'Order deleted successfully' },
