@@ -4,9 +4,8 @@ import { unstable_noStore as noStore } from 'next/cache'
 const fetchData = async () => {
   noStore()
   try {
-    const time = new Date().getTime()
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard?timestamp=${time}`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`
     )
     const data = await response.json()
     if (response.status !== 200) {
