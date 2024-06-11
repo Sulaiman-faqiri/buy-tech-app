@@ -2,16 +2,16 @@ import axios from 'axios'
 import Overview from '../../components/dashboard/overview/Overview'
 const fetchData = async () => {
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`,
       { cache: 'no-store' }
     )
-
+    const data = await response.json()
     if (response.status !== 200) {
       throw new Error('Failed to fetch overview information')
     }
 
-    return response.data
+    return data
   } catch (error) {
     console.log(error.message)
     throw new Error('Failed to fetch overview information')

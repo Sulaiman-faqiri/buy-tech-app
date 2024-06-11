@@ -3,15 +3,15 @@ import axios from 'axios'
 import React from 'react'
 const fetchData = async (id) => {
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${id}`
     )
-
+    const data = await response.json()
     if (response.status !== 200) {
       throw new Error('Failed to fetch user')
     }
 
-    return response.data
+    return data
   } catch (error) {
     console.log(error)
     throw new Error('Failed to fetch user')
