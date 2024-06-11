@@ -29,13 +29,19 @@ export async function POST(req) {
       cart.map(async (item) => {
         const product = await Product.findById(item.itemId)
         if (!product) {
-          throw new Error(`Product with id ${item.productId} not found`)
+          throw new Error(`Product with id ${item.itemId} not found`)
         }
+
+        let unitPrice = +product.currentPrice
+        if (product.isDiscounted && product.discountPercentage) {
+          unitPrice = unitPrice - (unitPrice * product.discountPercentage) / 100
+        }
+
         return {
           productId: item.itemId,
           quantity: +item.qty,
-          unitPrice: +product.currentPrice,
-          totalPrice: +product.currentPrice * +item.qty,
+          unitPrice: unitPrice,
+          totalPrice: unitPrice * +item.qty,
         }
       })
     )
@@ -49,6 +55,7 @@ export async function POST(req) {
     })
 
     await order.save()
+
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       billing_address_collection: 'required',
@@ -56,17 +63,22 @@ export async function POST(req) {
         enabled: true,
       },
       customer_email: email,
-      line_items: cart.map((item) => ({
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: item.name,
-            images: [item.image.src],
+      line_items: cart.map((item) => {
+        const product = orderItems.find(
+          (orderItem) => orderItem.productId.toString() === item.itemId
+        )
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: item.name,
+              images: [item.image.src],
+            },
+            unit_amount: Math.round(product.unitPrice * 100),
           },
-          unit_amount: (+item.price / +item.qty) * 100,
-        },
-        quantity: item.qty,
-      })),
+          quantity: item.qty,
+        }
+      }),
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/?status=success`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/?status=canceled`,
@@ -74,6 +86,7 @@ export async function POST(req) {
         orderId: order._id.toString(),
       },
     })
+
     revalidatePath('/dashboard', 'page')
 
     return NextResponse.json(
