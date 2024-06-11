@@ -5,11 +5,11 @@ const fetchData = async () => {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
       { cache: 'no-store' }
     )
-    const res = await response.json()
+    const data = await response.json()
     if (response.status !== 200) {
-      throw new Error('Failed to fetch categories')
+      throw new Error('Failed to fetch categoriess')
     }
-    return res
+    return data
   } catch (error) {
     console.log(error)
     throw new Error('Failed to fetch categories')
