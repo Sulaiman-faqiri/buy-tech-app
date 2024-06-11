@@ -1,8 +1,10 @@
+import { unstable_noStore as noStore } from 'next/cache'
+
 import EditProduct from '../../../../components/dashboard/editProduct/EditProduct'
-import axios from 'axios'
 import React from 'react'
 const fetchData = async (id) => {
   try {
+    noStore()
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${id}`
     )
@@ -19,6 +21,7 @@ const fetchData = async (id) => {
 }
 const fetchCategories = async () => {
   try {
+    noStore()
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
       { cache: 'no-store' }
@@ -37,7 +40,7 @@ const fetchCategories = async () => {
 
 const EditSingleProduct = async ({ params }) => {
   if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
-
+  noStore()
   const { id } = params
   const data = await fetchData(id)
   const categories = await fetchCategories()

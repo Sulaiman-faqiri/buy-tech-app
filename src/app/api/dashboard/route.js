@@ -3,6 +3,7 @@ import { User, Order } from '../../../models/models'
 import { connectToDb } from '../../../lib/connectToDb'
 import Stripe from 'stripe'
 
+export const dynamic = 'force-dynamic'
 // Initialize Stripe with your secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   timeout: 80000, // increase timeout

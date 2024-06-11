@@ -4,6 +4,7 @@ import { User } from '../../../models/models'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
+export const dynamic = 'force-dynamic'
 export const GET = async (request) => {
   try {
     const url = new URL(request.url)

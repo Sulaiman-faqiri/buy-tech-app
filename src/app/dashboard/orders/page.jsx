@@ -1,9 +1,11 @@
-import axios from 'axios'
+import { unstable_noStore as noStore } from 'next/cache'
+
 import Orders from '../../../components/dashboard/orders/Orders'
 
 import React from 'react'
 const fetchData = async (query, page) => {
   try {
+    noStore()
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_SERVER_URL
@@ -23,7 +25,7 @@ const fetchData = async (query, page) => {
 }
 const OrdersPage = async ({ searchParams }) => {
   if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
-
+  noStore()
   const query = searchParams?.q || ''
   const page = searchParams?.page || 1
   const { ITEM_PER_PAGE, count, orders } = await fetchData(query, page)

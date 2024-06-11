@@ -1,9 +1,12 @@
 import Overview from '../../components/dashboard/overview/Overview'
-export const dynamic = 'force-dynamic'
+import { unstable_noStore as noStore } from 'next/cache'
+
 const fetchData = async () => {
+  noStore()
   try {
+    const time = new Date().getTime()
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard?timestamp=${time}`
     )
     const data = await response.json()
     if (response.status !== 200) {
@@ -18,7 +21,7 @@ const fetchData = async () => {
 }
 const OverViewPage = async () => {
   if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
-
+  noStore()
   const data = await fetchData()
 
   return (

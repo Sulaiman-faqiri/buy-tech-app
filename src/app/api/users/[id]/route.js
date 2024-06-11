@@ -3,7 +3,7 @@ import { User } from '../../../../models/models'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { revalidatePath } from 'next/cache'
-
+export const dynamic = 'force-dynamic'
 export const GET = async (request, { params }) => {
   const { id } = params
   try {

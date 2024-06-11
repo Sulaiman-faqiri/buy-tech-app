@@ -1,18 +1,19 @@
-import axios from 'axios'
+import { unstable_noStore as noStore } from 'next/cache'
+
 import AddNewProduct from '../../../../components/dashboard/addNewProduct/AddNewProduct'
 import Link from 'next/link'
 const fetchData = async () => {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`,
-      { cache: 'no-store' }
+    noStore()
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/categories`
     )
-
+    const data = await response.json()
     if (response.status !== 200) {
       throw new Error('Failed to fetch categories')
     }
 
-    return response.data
+    return data
   } catch (error) {
     console.log(error)
     throw new Error('Failed to fetch categories')
@@ -21,7 +22,7 @@ const fetchData = async () => {
 
 const AddProduct = async () => {
   if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
-
+  noStore()
   const categories = await fetchData()
   return (
     <>

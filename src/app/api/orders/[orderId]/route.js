@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../../lib/connectToDb'
 import { Order } from '../../../../models/models'
 import { revalidatePath } from 'next/cache'
-
+export const dynamic = 'force-dynamic'
 export const GET = async (request, { params }) => {
   const { orderId: userId } = params
   if (!userId) {

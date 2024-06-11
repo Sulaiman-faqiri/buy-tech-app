@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../lib/connectToDb'
 import { Order, Product } from '../../../models/models'
 import { revalidatePath } from 'next/cache'
-
+export const dynamic = 'force-dynamic'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 export async function POST(req) {

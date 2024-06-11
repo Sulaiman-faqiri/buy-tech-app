@@ -3,6 +3,7 @@ import { connectToDb } from '../../../lib/connectToDb'
 import { Category } from '../../../models/models'
 import { revalidatePath } from 'next/cache'
 
+export const dynamic = 'force-dynamic'
 export const GET = async (request) => {
   try {
     await connectToDb()

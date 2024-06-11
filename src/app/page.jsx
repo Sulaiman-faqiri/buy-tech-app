@@ -4,8 +4,10 @@ import Product from '../components/productsSection/Product'
 import InfiniteSlider from '../components/infiniteSlider/InfiniteSlider'
 import Navbar from '../components/navbar/Navbar'
 import WhyChooseUs from '../components/whyChooseUs/WhyChooseUs'
+import { unstable_noStore as noStore } from 'next/cache'
 
 const Home = () => {
+  noStore()
   return (
     <>
       <Navbar />

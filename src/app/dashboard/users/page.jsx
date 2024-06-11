@@ -1,7 +1,10 @@
+import { unstable_noStore as noStore } from 'next/cache'
+
 import UsersTable from '../../../components/dashboard/usersTable/UsersTable'
 import React from 'react'
 const fetchData = async (query, page) => {
   try {
+    noStore()
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_SERVER_URL
@@ -22,6 +25,7 @@ const fetchData = async (query, page) => {
 
 const UsersPage = async ({ searchParams }) => {
   if (!process.env.NEXT_PUBLIC_SERVER_URL) return null
+  noStore()
   const query = searchParams?.q || ''
   const page = searchParams?.page || 1
 

@@ -3,6 +3,7 @@ import { connectToDb } from '../../../../lib/connectToDb'
 import { Category, Product } from '../../../../models/models'
 import { revalidatePath } from 'next/cache'
 
+export const dynamic = 'force-dynamic'
 export const DELETE = async (request, { params }) => {
   try {
     const { id } = params

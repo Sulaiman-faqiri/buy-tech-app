@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { connectToDb } from '../../../lib/connectToDb'
 import { Order, Product, User } from '../../../models/models'
 import { revalidatePath } from 'next/cache'
+export const dynamic = 'force-dynamic'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
