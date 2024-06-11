@@ -126,10 +126,7 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    previousPrice: {
-      type: Number,
-      default: null,
-    },
+
     isNewArrival: {
       type: Boolean,
       default: false,

@@ -37,7 +37,7 @@ const Product = () => {
   }, [])
 
   // Extract categories from products
-  const categories = data?.map((item) => item.category)
+  const categories = [...new Set(data?.map((item) => item.category))]
 
   const filteredProducts = data.filter((item) => {
     if (filter === 'all') {
@@ -76,15 +76,17 @@ const Product = () => {
             >
               All
             </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={filter === category ? 'activeBtn' : ''}
-                onClick={() => setFilter(category)}
-              >
-                {category}
-              </button>
-            ))}
+            {categories.map((category, i) => {
+              return (
+                <button
+                  key={i}
+                  className={filter === category ? 'activeBtn' : ''}
+                  onClick={() => setFilter(category)}
+                >
+                  {category}
+                </button>
+              )
+            })}
           </div>
           <select name='filter' id='filter' onChange={handleSort}>
             <option className='opt' value=''>
@@ -109,12 +111,14 @@ const Product = () => {
             return (
               <ProdItem
                 curPrice={item.currentPrice}
-                prvPrice={item.previousPrice}
+                discountPercentage={item.discountPercentage}
+                isDiscounted={item.isDiscounted}
                 image={item.images[0]}
                 name={item.name}
                 itemId={item._id}
                 outOfStock={item.outOfStock}
                 key={item._id}
+                id={item._id}
               />
             )
           })}

@@ -39,22 +39,6 @@ function LeftBoxInputs({
             }
           />
         </div>
-        <div className='inputBox'>
-          <label htmlFor='prvPrice'>Previous Price</label>
-          <input
-            placeholder='Enter previous price optional...'
-            id='prvPrice'
-            type='number'
-            name='prvPrice'
-            value={formData.prvPrice}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                prvPrice: e.target.value ? +e.target.value : null,
-              })
-            }
-          />
-        </div>
       </div>
       <div className='box'>
         <div className='inputBox'>

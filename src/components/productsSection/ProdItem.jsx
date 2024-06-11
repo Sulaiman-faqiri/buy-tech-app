@@ -3,14 +3,24 @@ import Grid from '@mui/material/Unstable_Grid2'
 import Link from 'next/link'
 import { useStore } from '../../lib/stateManagement'
 
-const ProdItem = ({ image, name, prvPrice, curPrice, itemId, outOfStock }) => {
+const ProdItem = ({
+  image,
+  name,
+  curPrice,
+  itemId,
+  outOfStock,
+  discountPercentage,
+  isDiscounted,
+  id,
+}) => {
   const { addToCart } = useStore()
 
   const addProductToCart = () => {
     addToCart({ image, name, price: curPrice, itemId, qty: 1 })
   }
+  const discountedPrice = curPrice - curPrice * (discountPercentage / 100)
   return (
-    <Grid className='prodItem'>
+    <Grid className='prodItem' key={id}>
       <div className='imgBox'>
         <Link href={'products/' + itemId}>
           <Image src={image.src} alt={name} fill loading='lazy' />
@@ -19,8 +29,10 @@ const ProdItem = ({ image, name, prvPrice, curPrice, itemId, outOfStock }) => {
       <div className='info'>
         <h4>{name}</h4>
         <div className='price'>
-          {!prvPrice == 0 && <span className='prvPrice'>${prvPrice}</span>}
-          <span className='curPrice'>${curPrice}</span>
+          {isDiscounted && <span className='prvPrice'>${curPrice}</span>}
+          <span className='curPrice'>
+            ${isDiscounted ? discountedPrice?.toFixed(0) : curPrice}
+          </span>
           {outOfStock && (
             <span style={{ color: 'red', fontWeight: 'bold' }}>
               out of stock
