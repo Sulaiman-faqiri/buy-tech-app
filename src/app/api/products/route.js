@@ -110,7 +110,7 @@ export const POST = async (req, res) => {
 
     await newProduct.save()
 
-    revalidatePath('/dashboard/products', 'page')
+    revalidatePath('/dashboard/categories', 'page')
 
     return NextResponse.json(
       { message: 'Product has been created successfully' },

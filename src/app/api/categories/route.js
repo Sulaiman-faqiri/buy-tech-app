@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../lib/connectToDb'
 import { Category } from '../../../models/models'
+import { revalidatePath } from 'next/cache'
 
 export const GET = async (request) => {
   try {
@@ -42,6 +43,7 @@ export const POST = async (request) => {
     })
 
     await newCategory.save()
+    revalidatePath('/dashboard/categories', 'page')
 
     return NextResponse.json(
       { message: 'Category created successfully' },

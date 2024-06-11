@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../../lib/connectToDb'
 import { Category, Product } from '../../../../models/models'
+import { revalidatePath } from 'next/cache'
 
 export const DELETE = async (request, { params }) => {
   try {
@@ -27,6 +28,7 @@ export const DELETE = async (request, { params }) => {
 
     // Find products with the deleted category and delete them
     await Product.deleteMany({ category: id })
+    revalidatePath('/dashboard/categories', 'page')
 
     return NextResponse.json(
       { message: 'Category and associated products deleted successfully' },
