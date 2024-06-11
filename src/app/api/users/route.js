@@ -82,6 +82,7 @@ export const POST = async (req, res) => {
 
     await newUser.save()
     revalidatePath('/dashboard/users', 'page')
+    revalidatePath('/dashboard', 'page')
 
     return NextResponse.json(
       { message: 'User has been created successfully' },

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Order } from '../../../models/models'
 import { connectToDb } from '../../../lib/connectToDb'
+import { revalidatePath } from 'next/cache'
 
 export const GET = async (request) => {
   try {
@@ -74,7 +75,8 @@ export const POST = async (req) => {
 
     // Save the order to the database
     await newOrder.save()
-
+    revalidatePath('/dashboard/orders', 'page')
+    revalidatePath('/dashboard', 'page')
     return NextResponse.json({
       message: 'Order created successfully',
       order: newOrder,

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { connectToDb } from '../../../lib/connectToDb'
 import { Order, Product, User } from '../../../models/models'
+import { revalidatePath } from 'next/cache'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -72,6 +73,7 @@ export async function POST(req) {
         orderId: order._id.toString(),
       },
     })
+    revalidatePath('/dashboard', 'page')
 
     return NextResponse.json(
       { id: session.id, url: session.url },

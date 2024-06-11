@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { connectToDb } from '../../../lib/connectToDb'
 import { Order, Product } from '../../../models/models'
+import { revalidatePath } from 'next/cache'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
@@ -74,6 +75,7 @@ export async function POST(req) {
           await product.save()
         }
       }
+      revalidatePath('/dashboard', 'page')
 
       return new NextResponse('Order updated successfully', { status: 200 })
     } catch (error) {

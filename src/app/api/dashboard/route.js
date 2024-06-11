@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import { User, Order } from '../../../models/models'
 import { connectToDb } from '../../../lib/connectToDb'
 import Stripe from 'stripe'
-import { revalidatePath } from 'next/cache'
 
 // Initialize Stripe with your secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -321,7 +320,6 @@ export async function GET() {
     const successfulTransactions = enhancedTransactions.filter(
       (transaction) => transaction !== null
     )
-    revalidatePath('/dashboard', 'page')
 
     // Respond with the data
     return NextResponse.json({
