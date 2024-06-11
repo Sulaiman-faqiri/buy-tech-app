@@ -66,7 +66,6 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
     <div className='ordersTable'>
       <div className='topBox'>
         <SearchBox placeholder={'Search order...'} />
-        <button>Add new</button>
       </div>
       <TableContainer component={Paper} className='tbl'>
         <Table aria-label='simple table'>

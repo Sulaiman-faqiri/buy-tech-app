@@ -20,7 +20,7 @@ const UsersTable = ({ users, count, ITEM_PER_PAGE }) => {
       <div className='topBox'>
         <SearchBox placeholder={'Search by username...'} />
         <Link href={'/dashboard/users/add'}>
-          <button>Add new</button>
+          <button>Add new user</button>
         </Link>
       </div>
       <TableContainer component={Paper} className='tbl'>

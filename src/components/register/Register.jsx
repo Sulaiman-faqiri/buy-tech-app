@@ -79,13 +79,16 @@ const RegisterForm = () => {
     if (Object.keys(newErrors).length === 0) {
       try {
         setSubmitForm(true)
-        const response = await axios.post(`http://localhost:3000/api/users`, {
-          username,
-          email,
-          password,
-          isAdmin: false,
-          imageInfo: { src: null },
-        })
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`,
+          {
+            username,
+            email,
+            password,
+            isAdmin: false,
+            imageInfo: { src: null },
+          }
+        )
         if (response.status === 200) {
           setSubmitForm(true)
           toast.success('Account has been created successfully.')

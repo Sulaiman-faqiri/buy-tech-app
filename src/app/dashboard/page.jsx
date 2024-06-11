@@ -3,7 +3,8 @@ import Overview from '../../components/dashboard/overview/Overview'
 const fetchData = async () => {
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/dashboard`,
+      { cache: 'no-store' }
     )
 
     if (response.status !== 200) {

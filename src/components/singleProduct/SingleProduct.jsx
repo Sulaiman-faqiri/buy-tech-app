@@ -1,8 +1,8 @@
 'use client'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import './SingleProduct.scss'
 import { useStore } from '../../lib/stateManagement'
+import './SingleProduct.scss'
 const SingleProduct = ({ data }) => {
   const { addToCart } = useStore()
   const [currentImage, setCurrentImage] = useState(data.images[0].src)
