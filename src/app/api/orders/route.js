@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server'
-import { Order } from '../../../models/models'
+import { Order, Product } from '../../../models/models'
 import { connectToDb } from '../../../lib/connectToDb'
 import { revalidatePath } from 'next/cache'
 
 export const dynamic = 'force-dynamic'
+
 export const GET = async (request) => {
   try {
     const url = new URL(request.url)
@@ -20,10 +21,36 @@ export const GET = async (request) => {
 
     const count = await Order.countDocuments(filter)
 
-    const orders = await Order.find(filter)
-      .populate('orderItems.productId')
+    let orders = await Order.find(filter)
+      .populate({
+        path: 'orderItems.productId',
+        populate: { path: 'category' }, // Populate the category reference in product
+      })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1))
+
+    // Apply discount to each product's price in the order items
+    for (let order of orders) {
+      for (let orderItem of order.orderItems) {
+        const product = await Product.findById(orderItem.productId)
+
+        if (product) {
+          console.log(orderItem)
+          let discountedPrice = product.currentPrice
+
+          // Check if the product has a discount
+          if (product.isDiscounted) {
+            const discountPercentage = product.discountPercentage || 0
+            discountedPrice =
+              product.currentPrice * (1 - discountPercentage / 100)
+          }
+
+          // Update order item prices
+          orderItem.unitPrice = discountedPrice
+          orderItem.totalPrice = discountedPrice * orderItem.quantity
+        }
+      }
+    }
 
     return NextResponse.json({ ITEM_PER_PAGE, count, orders }, { status: 200 })
   } catch (err) {

@@ -244,7 +244,7 @@ export async function GET() {
     ])
 
     // Define target value
-    const target = 10000 // You can adjust this value as needed
+    const target = 2000 // You can adjust this value as needed
 
     // Fetch balance from Stripe
 

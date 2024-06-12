@@ -75,9 +75,9 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
               <TableCell sx={{ width: '140px' }}>Customer Name</TableCell>
               <TableCell sx={{ width: '200px' }}>Address</TableCell>
               <TableCell sx={{ width: '140px' }}>Phone</TableCell>
-              <TableCell sx={{ width: '140px' }}>Total Price</TableCell>
               <TableCell sx={{ width: '80px' }}>Paid</TableCell>
               <TableCell sx={{ width: '140px' }}>Date</TableCell>
+              <TableCell sx={{ width: '140px' }}>Total Price</TableCell>
               <TableCell sx={{ width: '80px' }}>Status</TableCell>
               <TableCell sx={{ width: '140px' }} className='action'>
                 Action
@@ -112,9 +112,9 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
                     <TableCell>{customerName}</TableCell>
                     <TableCell>{address || ''}</TableCell>
                     <TableCell>{phoneNumber || ''}</TableCell>
-                    <TableCell>${totalPrice?.toFixed(2) || 0}</TableCell>
                     <TableCell>{isPaid ? 'Yes' : 'No'}</TableCell>
                     <TableCell>{orderDate}</TableCell>
+                    <TableCell>${totalPrice?.toFixed(2) || 0}</TableCell>
                     <TableCell
                       className={
                         orderStatus === 'Pending'
@@ -185,6 +185,7 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
                             </TableHead>
                             <TableBody>
                               {orderItems.map((item) => {
+                                console.log(item)
                                 const {
                                   productId,
                                   _id: itemId,
@@ -192,8 +193,24 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
                                 } = item
 
                                 if (productId) {
-                                  const { name, currentPrice, images } =
-                                    productId
+                                  const {
+                                    name,
+                                    currentPrice,
+                                    images,
+                                    discountPercentage,
+                                    isDiscounted,
+                                  } = productId
+                                  let finalPrice = currentPrice
+
+                                  // Apply the discount if the product is discounted
+                                  if (isDiscounted) {
+                                    finalPrice =
+                                      currentPrice *
+                                      (
+                                        1 -
+                                        (discountPercentage || 0) / 100
+                                      )?.toFixed(2)
+                                  }
                                   return (
                                     <TableRow
                                       key={itemId}
@@ -212,7 +229,7 @@ const Orders = ({ data, count, ITEM_PER_PAGE }) => {
                                         </div>
                                       </TableCell>
                                       <TableCell>
-                                        {currentPrice || 0}$
+                                        ${finalPrice?.toFixed(2) || 0}
                                       </TableCell>
                                       <TableCell>{quantity || 0}</TableCell>
                                     </TableRow>
