@@ -19,7 +19,7 @@ export async function POST(req) {
       process.env.STRIPE_WEBHOOK_SECRET
     )
   } catch (error) {
-    return new NextResponse(`Webhook error: ${error.message}`, { status: 400 })
+    return new NextResponse(`Webhook errorr: ${error.message}`, { status: 400 })
   }
 
   const session = event.data.object
