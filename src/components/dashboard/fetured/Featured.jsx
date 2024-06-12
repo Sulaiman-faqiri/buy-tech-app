@@ -37,7 +37,7 @@ const Featured = ({ data }) => {
             variant='determinate'
           />
           <div className='label'>
-            <span>{Math.round(achievedPercentage)}%</span>
+            <span>{achievedPercentage?.toFixed(1)}%</span>
           </div>
         </div>
         <h4>Total sales made today</h4>
@@ -52,21 +52,21 @@ const Featured = ({ data }) => {
             <span>Target</span>
             <div className={`box ${getTrendClass(target)}`}>
               {target > 1 ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-              <span>{Math.abs(achievedPercentage)}%</span>
+              <span>{achievedPercentage?.toFixed(1)}%</span>
             </div>
           </div>
           <div className={`smBox ${getTrendClass(salesLastWeek)}`}>
             <span>Last week</span>
             <div className={`box ${getTrendClass(salesLastWeek)}`}>
               {salesLastWeek > 1 ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-              <span>{Math.abs(salesLastWeek)}%</span>
+              <span>{salesLastWeek?.toFixed(1)}%</span>
             </div>
           </div>
           <div className={`smBox ${getTrendClass(salesLastMonth)}`}>
             <span>Last month</span>
             <div className={`box ${getTrendClass(salesLastMonth)}`}>
               {salesLastMonth > 1 ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-              <span>{Math.abs(salesLastMonth)}%</span>
+              <span>{salesLastMonth?.toFixed(1)}%</span>
             </div>
           </div>
         </div>
