@@ -4,7 +4,6 @@ import { connectToDb } from '../../../lib/connectToDb'
 import Stripe from 'stripe'
 
 export const dynamic = 'force-dynamic'
-
 // Initialize Stripe with your secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   timeout: 80000, // increase timeout
@@ -31,40 +30,31 @@ export async function GET() {
     // Connect to the database
     await connectToDb()
 
-    // Fetch total number of active users
+    // Fetch total number of users
     const totalUsers = await User.countDocuments({ isActive: true })
 
-    // Calculate the start and end of yesterday
-    const startOfToday = new Date()
-    startOfToday.setHours(0, 0, 0, 0)
-    const startOfYesterday = new Date(startOfToday)
-    startOfYesterday.setDate(startOfYesterday.getDate() - 1)
-
-    // Fetch number of users created yesterday
     const yesterdayUsers = await User.countDocuments({
-      createdAt: { $gte: startOfYesterday, $lt: startOfToday },
+      createdAt: { $lt: new Date().setHours(0, 0, 0, 0) },
     })
 
     // Calculate percentage change for totalUsers
     const usersChange =
-      yesterdayUsers !== 0
+      totalUsers !== 0
         ? ((totalUsers - yesterdayUsers) / yesterdayUsers) * 100
         : 0
 
     // Fetch total number of orders
     const totalOrders = await Order.countDocuments()
 
-    // Fetch number of orders created yesterday
+    // fetch yesterday orders
     const yesterdayOrders = await Order.countDocuments({
-      createdAt: { $gte: startOfYesterday, $lt: startOfToday },
+      createdAt: { $lt: new Date().setHours(0, 0, 0, 0) },
     })
-
     // Calculate percentage change for totalOrders
     const ordersChange =
       yesterdayOrders !== 0
         ? ((totalOrders - yesterdayOrders) / yesterdayOrders) * 100
         : 0
-
     // Calculate total earnings
     const orders = await Order.find()
       .populate('userId')
@@ -79,7 +69,7 @@ export async function GET() {
     }, 0)
 
     const yesterdayOrdersData = await Order.find({
-      createdAt: { $gte: startOfYesterday, $lt: startOfToday },
+      createdAt: { $lt: new Date().setHours(0, 0, 0, 0) },
     }).populate('orderItems.productId')
 
     const yesterdayEarnings = yesterdayOrdersData.reduce((sum, order) => {
@@ -219,9 +209,15 @@ export async function GET() {
     startOfLastMonth.setDate(1) // First day of the last month
     startOfLastMonth.setHours(0, 0, 0, 0)
 
-    const endOfLastMonth = new Date(startOfLastMonth)
-    endOfLastMonth.setMonth(endOfLastMonth.getMonth() + 1)
-    endOfLastMonth.setDate(0) // Last day of the last month
+    const endOfLastMonth = new Date()
+    endOfLastMonth.setMonth(endOfLastMonth.getMonth() - 1)
+    endOfLastMonth.setDate(
+      new Date(
+        endOfLastMonth.getFullYear(),
+        endOfLastMonth.getMonth() + 1,
+        0
+      ).getDate()
+    ) // Last day of the last month
     endOfLastMonth.setHours(23, 59, 59, 999)
 
     const salesLastMonth = await Order.aggregate([
@@ -251,21 +247,20 @@ export async function GET() {
     const target = 10000 // You can adjust this value as needed
 
     // Fetch balance from Stripe
+
     const balanceResult = await stripe.balance.retrieve()
 
     const balance = balanceResult.available[0].amount / 100 // Convert balance to dollars
 
     // Calculate start and end timestamps for yesterday
-    const startOfYesterdayTimestamp = Math.floor(
-      startOfYesterday.getTime() / 1000
-    )
-    const endOfYesterdayTimestamp = Math.floor(startOfToday.getTime() / 1000)
+    const startOfToday = Math.floor(new Date().setHours(0, 0, 0, 0) / 1000)
+    const startOfYesterday = startOfToday - 86400
 
     // Fetch transactions for yesterday
     const yesterdayTransactions = await stripe.balanceTransactions.list({
       created: {
-        gte: startOfYesterdayTimestamp,
-        lt: endOfYesterdayTimestamp,
+        gte: startOfYesterday,
+        lt: startOfToday,
       },
     })
 
@@ -274,8 +269,8 @@ export async function GET() {
 
     yesterdayTransactions.data.forEach((transaction) => {
       if (
-        transaction.created >= startOfYesterdayTimestamp &&
-        transaction.created < endOfYesterdayTimestamp
+        transaction.created >= startOfYesterday &&
+        transaction.created < startOfToday
       ) {
         if (transaction.type === 'payment') {
           yesterdayBalance += transaction.amount
