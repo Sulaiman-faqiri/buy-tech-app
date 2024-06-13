@@ -22,7 +22,7 @@ const Product = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?item=all`
         )
         setData(response.data.products)
         setLoading(false)

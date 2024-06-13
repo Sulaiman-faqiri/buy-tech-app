@@ -61,7 +61,20 @@ export default function Row({
                 <TableBody>
                   {orderItems.map((item) => {
                     const { productId, _id, quantity } = item
-                    const { name, currentPrice, images } = productId
+                    const {
+                      name,
+                      currentPrice,
+                      images,
+                      discountPercentage,
+                      isDiscounted,
+                    } = productId
+                    let finalPrice = currentPrice
+
+                    if (isDiscounted) {
+                      finalPrice =
+                        currentPrice *
+                        (1 - (discountPercentage || 0) / 100)?.toFixed(2)
+                    }
                     return (
                       <TableRow key={_id}>
                         <TableCell>{name}</TableCell>
@@ -72,7 +85,7 @@ export default function Row({
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell>{currentPrice}$</TableCell>
+                        <TableCell> ${finalPrice?.toFixed(2) || 0}</TableCell>
                         <TableCell>{quantity}</TableCell>
                       </TableRow>
                     )

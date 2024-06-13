@@ -177,14 +177,14 @@
     align-items: center;
   }
 }
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-300px * 6));
-  }
-}
+// @keyframes scroll {
+//   0% {
+//     transform: translateX(0);
+//   }
+//   100% {
+//     transform: translateX(calc(-300px * 10));
+//   }
+// }
 .sliderCard {
   width: 100%;
   min-height: 80%;

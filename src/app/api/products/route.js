@@ -3,10 +3,12 @@ import { NextResponse } from 'next/server'
 import { Product } from '../../../models/models'
 import { connectToDb } from '../../../lib/connectToDb'
 export const dynamic = 'force-dynamic'
+
 export const GET = async (request) => {
   try {
     const url = new URL(request.url)
     const query = url.searchParams.get('query') || ''
+    const itemParam = url.searchParams.get('item') || ''
     let page = parseInt(url.searchParams.get('page'))
     page = page > 0 ? page : 1
     const ITEM_PER_PAGE = 9
@@ -14,13 +16,18 @@ export const GET = async (request) => {
     await connectToDb()
 
     const filter = query ? { name: { $regex: query, $options: 'i' } } : {}
-
     const count = await Product.countDocuments(filter)
 
-    const products = await Product.find(filter)
-      .populate('category')
-      .limit(ITEM_PER_PAGE)
-      .skip(ITEM_PER_PAGE * (page - 1))
+    let products
+
+    if (itemParam === 'all') {
+      products = await Product.find(filter).populate('category')
+    } else {
+      products = await Product.find(filter)
+        .populate('category')
+        .limit(ITEM_PER_PAGE)
+        .skip(ITEM_PER_PAGE * (page - 1))
+    }
 
     const now = new Date()
 

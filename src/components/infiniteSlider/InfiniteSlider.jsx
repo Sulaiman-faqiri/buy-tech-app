@@ -18,7 +18,7 @@ const InfiniteSlider = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products?item=all`
         )
         setData(response.data.products)
         setLoading(false)
@@ -45,6 +45,21 @@ const InfiniteSlider = () => {
   const sliderBoxClass =
     discountedProducts.length > 4 ? 'sliderBox hasPseudoElements' : 'sliderBox'
 
+  useEffect(() => {
+    const numItems = discountedProducts.length
+    const styleSheet = document.styleSheets[0]
+    const keyframes = `
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(-300px * ${numItems}));
+        }
+      }
+    `
+    styleSheet.insertRule(keyframes, styleSheet.cssRules.length)
+  }, [discountedProducts])
   return (
     <div id='showcase' className='sliderSection'>
       <h2>Exclusive Discounts</h2>
