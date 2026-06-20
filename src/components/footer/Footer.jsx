@@ -17,7 +17,7 @@ const Footer = () => {
 
         <div className='legal__links'>
           <span>
-            Made with <span className='heart'>♥</span> by Sulaiman
+            Made with <span className='heart'>♥</span> by Faqiri
           </span>
         </div>
       </div>
