@@ -4,15 +4,22 @@ const connection = {}
 
 export const connectToDb = async () => {
   try {
+    console.log("Connecting...");
+
     if (connection.isConnected) {
-      console.log('Using existing connection')
-      return
+      console.log("Already connected");
+      return;
     }
-    const db = await mongoose.connect(process.env.MONGO)
-    connection.isConnected = db.connections[0].readyState
-    console.log('database is connected')
-  } catch (error) {
-    console.log(error)
-    throw new Error(error)
+
+    console.log(process.env.MONGO); // temporarily
+
+    const db = await mongoose.connect(process.env.MONGO);
+
+    console.log("Connected!");
+
+    connection.isConnected = db.connections[0].readyState;
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
-}
+};
