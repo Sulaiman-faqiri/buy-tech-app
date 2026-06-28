@@ -36,7 +36,7 @@ const Product = () => {
     fetchData()
   }, [])
 
-  // Extract categories from products
+  
   const categories = [...new Set(data?.map((item) => item.category))]
 
   const filteredProducts = data.filter((item) => {

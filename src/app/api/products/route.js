@@ -114,6 +114,7 @@ export const POST = async (req, res) => {
       discountEndDate: isDiscounted ? new Date(discountEndDate) : null,
       stockQuantity: +stockQuantity,
     })
+    console.log(newProduct)
 
     await newProduct.save()
 

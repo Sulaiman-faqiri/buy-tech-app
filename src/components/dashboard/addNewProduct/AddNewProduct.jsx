@@ -1,13 +1,11 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { formatFileSize } from '../addNewUser/AddNewUser'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import LeftBoxInputs from './LeftBoxInputs'
 import RightBoxImages from './RightBoxImages'
-import { storage } from '../../../lib/firebaseConfig'
 import { v4 as uuidv4 } from 'uuid'
 import './AddNewProduct.scss'
 
@@ -109,90 +107,68 @@ const AddNewProduct = ({ categories }) => {
 
     setImgError(false)
     const imgUrls = []
-    const formImages = images.filter((item) => item.src !== null)
-    setFormSubmitted(true)
+   const formImages = images.filter((item) => item.src !== null)
 
-    try {
-      for (let i = 0; i < images.length; i++) {
-        const img = images[i]
-        if (img.src) {
-          const storageRef = ref(storage, `images/${img.name}`)
-          const uploadTask = uploadBytesResumable(storageRef, img.file)
+setFormSubmitted(true)
 
-          uploadTask.on(
-            'state_changed',
-            (snapshot) => {
-              // Update progress
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              setUploadProgress((prevProgress) => {
-                const newProgress = [...prevProgress]
-                newProgress[i] = progress
-                return newProgress
-              })
-            },
-            (error) => {
-              // Handle unsuccessful uploads
-              console.error(error)
-              toast.error('Uploading images was not successful')
-            },
-            () => {
-              // Handle successful uploads
-              getDownloadURL(uploadTask.snapshot.ref)
-                .then(async (downloadURL) => {
-                  imgUrls.push({
-                    name: img.name,
-                    size: img.size,
-                    src: downloadURL,
-                  })
+try {
+  const imgUrls = await Promise.all(
+    formImages.map(async (img, index) => {
 
-                  if (imgUrls.length === formImages.length) {
-                    // All images uploaded, send request to backend
-                    try {
-                      await axios.post(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`,
-                        {
-                          productName,
-                          prvPrice,
-                          curPrice,
-                          description,
-                          category,
-                          imgUrls,
-                          isNewArrival,
-                          isDiscounted,
-                          discountPercentage,
-                          discountStartDate,
-                          discountEndDate,
-                          stockQuantity,
-                        }
-                      )
-                      router.push('/dashboard/products')
-                      router.refresh('/dashboard/products')
-                      toast.success('Product is added successfully')
-                    } catch (error) {
-                      setFormSubmitted(false)
-                      console.error('Error sending data to backend:', error)
-                      toast.error('Failed to save product')
-                    }
-                  }
-                  console.log('File uploaded successfully:', downloadURL)
-                })
-                .catch((error) => {
-                  setFormSubmitted(false)
-                  console.error('Error getting download URL:', error)
-                  toast.error('Error getting download image URL')
-                })
-            }
-          )
+const form = new FormData()
+   form.append('file', img.file) 
 
-          await uploadTask
-        }
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: form,
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to upload image')
       }
-    } catch (err) {
-      setFormSubmitted(false)
-      console.error(err)
-      toast.error('Something went wrong while submitting form')
-    }
+
+      const data = await response.json()
+
+      setUploadProgress((prev) => {
+        const updated = [...prev]
+        updated[index] = 100
+        return updated
+      })
+
+      return {
+        name: img.name,
+        size: img.size,
+        src: data.url,
+      }
+    })
+  )
+
+  await axios.post('/api/products', {
+    productName,
+    prvPrice,
+    curPrice,
+    description,
+    category,
+    imgUrls,
+    isNewArrival,
+    isDiscounted,
+    discountPercentage,
+    discountStartDate,
+    discountEndDate,
+    stockQuantity,
+  })
+
+  toast.success('Product added successfully')
+
+  router.push('/dashboard/products')
+  router.refresh()
+} catch (error) {
+  console.error(error)
+
+  setFormSubmitted(false)
+
+  toast.error('Failed to upload product')
+}
   }
 
   return (

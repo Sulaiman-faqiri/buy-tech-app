@@ -1,8 +1,5 @@
 'use client'
-// import { storage } from '@/components/utils/firebaseConfig'
-import { storage } from '../../../lib/firebaseConfig'
 import axios from 'axios'
-import { deleteObject, ref } from 'firebase/storage'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { toast } from 'sonner'
@@ -17,8 +14,16 @@ const DeleteUserBtn = ({ _id, image }) => {
       router.refresh('/dashboard/users')
       toast.success('User deleted successfully')
       if (image.src) {
-        const storageRef = ref(storage, `images/${image.name}`)
-        await deleteObject(storageRef)
+     
+        await fetch('/api/upload/delete', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: image.src,
+  }),
+})
       }
     }
     if (response.status === 404) toast.error('user not found.')

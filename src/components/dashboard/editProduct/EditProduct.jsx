@@ -1,19 +1,12 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  deleteObject,
-} from 'firebase/storage'
 import { formatFileSize } from '../addNewUser/AddNewUser'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import '../addNewProduct/AddNewProduct.scss'
 import LeftBoxInputs from '../addNewProduct/LeftBoxInputs'
 import RightBoxImages from '../addNewProduct/RightBoxImages'
-import { storage } from '../../../lib/firebaseConfig'
 import { v4 as uuidv4 } from 'uuid'
 
 const EditProduct = ({ editMode, editData, prodId, categories }) => {
@@ -141,38 +134,58 @@ const EditProduct = ({ editMode, editData, prodId, categories }) => {
     setFormSubmitted(true)
 
     try {
-      const uploadedImageURLs = await Promise.all(
-        formImages.map(async (img, i) => {
-          if (img.file) {
-            const storageRef = ref(storage, `images/${img.name}`)
-            const uploadTask = uploadBytesResumable(storageRef, img.file)
-            uploadTask.on('state_changed', (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-              setUploadProgress((prevProgress) => {
-                const newProgress = [...prevProgress]
-                newProgress[i] = progress
-                return newProgress
-              })
-            })
+  const uploadedImageURLs = await Promise.all(
+  formImages.map(async (img, i) => {
+    // Existing image, keep it
+    if (!img.file) {
+      return img
+    }
 
-            await uploadTask
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-            return { ...img, src: downloadURL }
-          } else return img
-        })
-      )
+    const form = new FormData()
+    form.append('file', img.file)
+
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: form,
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to upload image')
+    }
+
+    const data = await response.json()
+
+    setUploadProgress((prev) => {
+      const updated = [...prev]
+      updated[i] = 100
+      return updated
+    })
+
+    return {
+      name: img.name,
+      size: img.size,
+      src: data.url,
+    }
+  })
+)
 
       formDataToSubmit.imgUrls.push(...uploadedImageURLs)
 
       await Promise.all(
-        removedImages.map(async (removedImage) => {
-          if (removedImage.src && !removedImage.file) {
-            const storageRef = ref(storage, `images/${removedImage.name}`)
-            await deleteObject(storageRef)
-          }
-        })
-      )
+  removedImages.map(async (removedImage) => {
+    if (removedImage.src && !removedImage.file) {
+      await fetch('/api/upload/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: removedImage.src,
+        }),
+      })
+    }
+  })
+)
 
       await axios.put(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${prodId}`,

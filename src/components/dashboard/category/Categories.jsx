@@ -3,8 +3,6 @@ import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { ref, deleteObject } from 'firebase/storage'
-import { storage } from '../../../lib/firebaseConfig'
 import './Categories.scss'
 
 const Categories = ({ categories }) => {
@@ -27,12 +25,19 @@ const Categories = ({ categories }) => {
         // Filter products belonging to the deleted category
         const productsToDelete = products.filter((item) => item.category === id)
 
-        // Delete images from Firebase Storage for each product
+        // Delete images from  Storage for each product
         for (const product of productsToDelete) {
           for (const image of product.images) {
             if (image.src && !image.file) {
-              const storageRef = ref(storage, `images/${image.name}`)
-              await deleteObject(storageRef)
+          await fetch('/api/upload/delete', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: image.src,
+  }),
+})
             }
           }
         }

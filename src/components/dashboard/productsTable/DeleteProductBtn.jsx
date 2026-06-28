@@ -1,7 +1,5 @@
 'use client'
-import { storage } from '../../../lib/firebaseConfig'
 import axios from 'axios'
-import { deleteObject, ref } from 'firebase/storage'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { toast } from 'sonner'
@@ -18,8 +16,15 @@ const DeleteProductBtn = ({ _id, images }) => {
       await Promise.all(
         images.map(async (removedImage) => {
           if (removedImage.src) {
-            const storageRef = ref(storage, `images/${removedImage.name}`)
-            await deleteObject(storageRef)
+      await fetch('/api/upload/delete', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: image.src,
+  }),
+})
           }
         })
       )
